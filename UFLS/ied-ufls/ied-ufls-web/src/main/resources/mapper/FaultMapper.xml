@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kedong.ieduflsweb.mapper.FaultDao">
+
+    <!--查找直调厂站故障表-->
+    <select id="getSgFaultList" resultType="FaultVo">
+        select fault_id faultID,fault_time faultTime,fault_secdev faultSecdev,name descr,st_name1
+        subA,st_name2 subB from
+        SG_IED.ied_fault a
+        order by fault_time desc
+    </select>
+
+</mapper>

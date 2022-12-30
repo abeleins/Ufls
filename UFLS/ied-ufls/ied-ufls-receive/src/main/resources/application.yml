@@ -1,0 +1,62 @@
+server:
+  port: 8082            #访问端口
+  servlet:
+    context-path: /iedrec   #访问路径 http://localhost:8082/ied/
+spring:
+  profiles:
+    include: data
+  devtools:
+    restart:
+      enabled: true #设置热部署开启
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+  application:
+    name: ied
+
+#  datasource:
+#    url: jdbc:dm://192.175.1.21:5236?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+#    username: SYSDBA
+#    password: SYSDBA
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: dm.jdbc.driver.DmDriver
+#  kafka:
+#    bootstrap-servers: 192.175.1.21:9092
+#    #provider
+#    producer:
+#      retries: 10 #在发送失败时，重试10次
+#      #每批次发送消息的数量
+#      batch-size: 1000
+#      buffer-memory: 1000000
+#      #指定消息key value的编解码格式
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    #consumer
+#    #指定消费者group id
+#    consumer:
+#      group-id: ied-cime-group
+#      auto-offset-reset: latest
+#      enable-auto-commit: true
+#      auto-commit-interval: 100
+#      #指定消息key value的编解码格式
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#  profiles:
+#    active: spring  #spring为application-spring.yml文件名的添加部分（加载外部yml文件）
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #classpath就是应用程序resources的路径
+  configuration:
+    lazy-loading-enabled: true #配置懒加载
+    aggressive-lazy-loading: false #配置属性懒加载
+logging:
+  level:
+    com.kedong.iedfilerec.dao: debug

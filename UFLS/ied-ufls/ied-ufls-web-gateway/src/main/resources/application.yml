@@ -1,0 +1,6 @@
+#项目路径，默认为 /。
+#http://localhost:9097/ieduflsgate/swagger-ui.html
+server:
+  port: 9097
+  servlet:
+    context-path: /ieduflsgate

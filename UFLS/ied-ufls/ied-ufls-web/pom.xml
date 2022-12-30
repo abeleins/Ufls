@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.national.cloud</groupId>
+        <artifactId>iedUfls</artifactId>
+        <version>1.0</version>
+    </parent>
+    <groupId>com.kedong</groupId>
+    <artifactId>ied-ufls-web</artifactId>
+    <version>1.0</version>
+
+    <packaging>war</packaging>
+    <name>ied-ufls-web</name>
+    <description>提供者</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.kedong</groupId>
+            <artifactId>ied-ufls-web-common</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+        </dependency>
+        <!--c3p0连接池jar包-->
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+        </dependency>
+
+        <!-- 连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <!--达梦数据库驱动-->
+        <dependency>
+            <groupId>com.dm</groupId>
+            <artifactId>DmJdbcDriver</artifactId>
+        </dependency>
+
+        <!--D5000-support-->
+        <dependency>
+            <groupId>com.kd</groupId>
+            <artifactId>support-xn</artifactId>
+        </dependency>
+
+        <!--D5000-platform-->
+        <dependency>
+            <groupId>com.kd</groupId>
+            <artifactId>platform-xn</artifactId>
+        </dependency>
+
+        <!-- 云服务总线 start-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+
+        <!-- 云服务总线 end-->
+        <dependency>
+            <groupId>com.kd</groupId>
+            <artifactId>ifxjdbc</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--添加配置跳过测试-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>5.1.4</version>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+        <finalName>ied</finalName>
+    </build>
+
+</project>

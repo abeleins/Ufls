@@ -1,0 +1,26 @@
+datasource:
+  write:
+    driver-class-name: com.informix.jdbc.IfxDriver
+    url: jdbc:informix-sqli:/sg_db:INFORMIXSERVER=rw_group;SQLH_TYPE=FILE;SQLH_FILE=/home/dcenter/kd_web/sqlhosts;DB_LOCALE=zh_cn.utf8;CLIENT_LOCALE=zh_cn.utf8;DELIMIDENT=y;IFX_USE_STRENC=true;APPENDISAM=TRUE
+    username: kd_ied
+    password: kd_ied
+  read:
+    driver-class-name: com.informix.jdbc.IfxDriver
+    url: jdbc:informix-sqli:/sg_db:INFORMIXSERVER=r_group;SQLH_TYPE=FILE;SQLH_FILE=/home/dcenter/kd_web/sqlhosts;DB_LOCALE=zh_cn.utf8;CLIENT_LOCALE=zh_cn.utf8;DELIMIDENT=y;IFX_USE_STRENC=true;APPENDISAM=TRUE
+    username: kd_ied
+    password: kd_ied
+#datasource:
+#  write:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/
+#    username: root
+#    password: 4216
+#  read:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/
+#    username: root
+#    password: 4216
+#工作站--写
+#jdbc:informix-sqli://10.10.16.10:9088/ied_db:informixserver=bj4;NEWCODESET=UTF-8,8859_1,819;db_locale=zh_CN.utf8;client_locale=zh_CN.utf8;DELIMIDENT=y
+#工作站--读
+#jdbc:informix-sqli://10.10.16.11:9088/ied_db:informixserver=bj5;NEWCODESET=UTF-8,8859_1,819;db_locale=zh_CN.utf8;client_locale=zh_CN.utf8,DELIMIDENT=y

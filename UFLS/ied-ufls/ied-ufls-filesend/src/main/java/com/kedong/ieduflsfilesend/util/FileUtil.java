@@ -107,47 +107,5 @@ public class FileUtil {
         return new AsyncResult<Boolean>(res);
     }
 
-    /**
-     * 创建命令文件
-     *
-     * @param bean
-     * @return
-     */
-    @Async
-    public Future<Boolean> createCommandFile(RecFileBean bean) {
-        String fileName = bean.getFileName();
-        try {
-            File file = new File(rootPath + "/COMMAND/" + fileName + ".cime");
-            //如果已有原文件，则删除，创建新的文件
-            if (file.exists())
-                file.delete();
-            if (!file.createNewFile()) {
-                logger.info("create file fail:" + fileName);
-            }
-            //命令文件或心跳文件中添加内容
-            String str;
-            if (fileName.contains("Heart"))
-                str = "<! System=调控云 Version=1.0 Code=UTF_8 Type= Time='2015_10_25 09:14:05' !>\n" +
-                        "<Heart>\n" +
-                        "  @ Num        Time\n" +
-                        "  // 序号      时间         \n" +
-                        " #1      '" + DateUtil.format(bean.getTimeStamp(), "yyyy-MM-dd HH:mm:ss.SSS") + "'\n" +
-                        "</Heart>";
-            else
-                str = "<! System=调控云 Version=1.0 Code=UTF_8 Type= Time='2015_10_25 09:14:05' !>\n" +
-                        "<Time>\n" +
-                        "  @ Num        Time\n" +
-                        "  // 序号      时间         \n" +
-                        " #1      '" + DateUtil.format(bean.getTimeStamp(), "yyyy-MM-dd HH:mm:ss.SSS") + "'\n" +
-                        "</Time>";
-            FileOutputStream outputStream = new FileOutputStream(file);
-            outputStream.write(str.getBytes(StandardCharsets.UTF_8));
-            outputStream.close();
-        } catch (Exception e) {
-            logger.error("create file exception:" + fileName);
-            return new AsyncResult<Boolean>(false);
-        }
 
-        return new AsyncResult<Boolean>(true);
-    }
 }

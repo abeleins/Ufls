@@ -1,6 +1,9 @@
 package com.kedong.ieduflsfilesend.util;
 
 import com.alibaba.fastjson2.JSON;
+import com.kedong.ieduflscommon.entity.DataFileBean;
+import com.kedong.ieduflscommon.entity.RecFileBean;
+import com.kedong.ieduflscommon.util.DealFileTool;
 import com.kedong.ieduflsfilesend.constant.CommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +44,9 @@ public class FileSender {
     @Value("${cimeFile.rootPath}")
     private  String rootPath;
 
+    @Value("${file.fragment.size}")
+    private static int  fileFragmentSize;
+
     private static final Logger logger = LoggerFactory.getLogger(FileSender.class);
 
     /**
@@ -63,32 +69,32 @@ public class FileSender {
         long currentTimeMillis = System.currentTimeMillis();
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
         String fileName = file.getName();
-        byte[] dataArr = new byte[RecFileBean.FILE_FRAGMENT_SIZE];//1024*200
+        byte[] dataArr = new byte[fileFragmentSize];//1024*200
         int len;
         int currentNum = 0;
         //生成报文对象，并初始化
-        RecFileBean recFileBean = createRecFileBean(file);
-        setRecFileBean(recFileBean, null, CommonConstant.TRANS_FLAG_START, null, null);
-        //发送开始消息
-        messageTemplate.send(topic, fileName, JSON.toJSONString(recFileBean));
+//        DataFileBean dataFileBean = createRecFileBean(file);
         while ((len = bis.read(dataArr)) != -1) {
             byte[] newDataArr;
-            if (len != RecFileBean.FILE_FRAGMENT_SIZE) {
+            if (len != fileFragmentSize) {
                 newDataArr = Arrays.copyOf(dataArr, len);
+                currentNum++;
+                String data = DealFileTool.getBase64Encode(newDataArr);
+                setRecFileBean(recFileBean, currentNum,  CommonConstant.TRANS_FLAG_DOING, data, len);
+                messageTemplate.send(topic, fileName, JSON.toJSONString(recFileBean));
             } else {
                 newDataArr = dataArr;
+                String data = DealFileTool.getBase64Encode(newDataArr);
+                //发送结束标志
+                setRecFileBean(recFileBean, null, CommonConstant.TRANS_FLAG_END, null, null);
+                messageTemplate.send(topic, fileName, JSON.toJSONString(recFileBean));
             }
             //当前序号+1
-            currentNum++;
-            String data = DealFileTool.getBase64Encode(newDataArr);
-            setRecFileBean(recFileBean, currentNum,  CommonConstant.TRANS_FLAG_DOING, data, len);
-            messageTemplate.send(topic, fileName, JSON.toJSONString(recFileBean));
+
         }
         bis.close();
 
-        //发送结束标志
-        setRecFileBean(recFileBean, null, CommonConstant.TRANS_FLAG_END, null, null);
-        messageTemplate.send(topic, fileName, JSON.toJSONString(recFileBean));
+
         long currentTimeMillis1 = System.currentTimeMillis();
         logger.info("*********Thread= " + Thread.currentThread().getName() + "====filename =" + fileName + "task======================================" + (currentTimeMillis1 - currentTimeMillis) + "ms");
         return new AsyncResult<>(true);
@@ -100,8 +106,8 @@ public class FileSender {
      * @param
      * @return
      */
-    public void setRecFileBean(RecFileBean recFileBean, Integer currentNum, int flag, String data, Integer curDataSize) {
-        recFileBean.setCurrentNum(currentNum);
+    public void setRecFileBean(DataFileBean recFileBean, Integer currentNum, int flag, String data, Integer curDataSize) {
+        recFileBean.set(currentNum);
         recFileBean.setFlag(flag);
         recFileBean.setTimeStamp(new Date());
         recFileBean.setData(data);
@@ -117,6 +123,6 @@ public class FileSender {
      * @return
      */
     public RecFileBean createRecFileBean(File file) {
-        return new RecFileBean(file, rootPath);
+        return new DataFileBean(file, rootPath);
     }
 }

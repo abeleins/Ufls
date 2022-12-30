@@ -1,6 +1,9 @@
 package com.kedong.ieduflsfilesend.task;
 
 import cn.hutool.core.collection.CollectionUtil;
+//import com.kedong.ieduflscommon.entity.RecFileBean;
+import com.kedong.ieduflscommon.entity.BackFileBean;
+import com.kedong.ieduflscommon.entity.RecFileBean;
 import com.kedong.ieduflsfilesend.util.FileSender;
 import com.kedong.ieduflsfilesend.util.FileUtil;
 import org.slf4j.Logger;
@@ -185,8 +188,8 @@ public class MqTask {
     }
 
 
-    public void handleAckMessage(RecFileBean bean) {
-        if (bean.getAck() == 1) {
+    public void handleAckMessage(BackFileBean bean) {
+        if (bean.getResult() == 1) {
             logger.info("ACK success");
             fileUtil.deleteBackupFile(bean.getFileName());
         } else {

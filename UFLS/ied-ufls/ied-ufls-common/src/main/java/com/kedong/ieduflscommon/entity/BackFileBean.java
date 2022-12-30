@@ -37,4 +37,8 @@ public class BackFileBean {
     //接收报文结果  0:成功，1:失败
     @JSONField(ordinal = 6,name="Result")
     private int result;
+
+    //接收报文结果  0:成功，1:失败
+    @JSONField(ordinal = 6,name="No")
+    private int no;
 }

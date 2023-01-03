@@ -22,4 +22,5 @@ public class AreaFileBean {
     //区域名称
     @JSONField(ordinal = 2,name="RegionName")
     private String regionName;
+
 }

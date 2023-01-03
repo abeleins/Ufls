@@ -16,4 +16,8 @@ public class CommonConstant {
      */
     public  static  final  Integer  TRANS_FLAG_END = 2;
 
+    /**
+     * 发送文件的异常标识
+     */
+    public  static  final  Integer  TRANS_FLAG_ERROR = 3;
 }

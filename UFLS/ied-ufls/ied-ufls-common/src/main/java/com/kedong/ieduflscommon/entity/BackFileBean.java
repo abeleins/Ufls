@@ -30,15 +30,15 @@ public class BackFileBean {
     @JSONField(ordinal = 4,name="FileName")
     private String fileName;
 
+    //响应时间戳
+    @JSONField(ordinal = 5,name="AckTime")
+    private long ackTime;
+
     //区域信息
-    @JSONField(ordinal = 5,name="Condition")
+    @JSONField(ordinal = 6,name="Condition")
     private AreaFileBean condition;
 
     //接收报文结果  0:成功，1:失败
-    @JSONField(ordinal = 6,name="Result")
+    @JSONField(ordinal = 7,name="Result")
     private int result;
-
-    //接收报文结果  0:成功，1:失败
-    @JSONField(ordinal = 6,name="No")
-    private int no;
 }

@@ -26,24 +26,6 @@ public class FileUtil {
     private String rootPath;
 
     /**
-     * 扫描所有路径下的文件
-     *
-     * @return
-     */
-    public static Map<String, List<File>> scanAllDirectory(String path) {
-        String[] folders = {"RESPONSE", "MODEL", "REAL", "EVENT", "FILE"};
-        Map<String, List<File>> fileMap = new HashMap<>(folders.length);
-        for (int i = 0; i < folders.length; i++) {
-            List<File> fileList = new ArrayList<>();
-            scanAllCimeFile(path + "/" + folders[i], fileList);
-            if (fileList.size() > 0) {
-                fileMap.put(folders[i], fileList);
-            }
-        }
-        return fileMap;
-    }
-
-    /**
      * 扫描指定路径下的所有CIME文件, 包括子目录下文件(file目录下的文件按厂站和装置名存放)
      *
      * @return
@@ -77,7 +59,7 @@ public class FileUtil {
      */
     @Async
     public Future<Boolean> backupFile(File file) {
-        String path = rootPath + "_bak/";
+        String path = rootPath + "_bak" + File.separator;
         File folder = new File(path);
         if (!folder.exists()) {
             Boolean res = folder.mkdir();
@@ -97,7 +79,7 @@ public class FileUtil {
      */
     @Async
     public Future<Boolean> deleteBackupFile(String fileName) {
-        File file = new File(rootPath + "_bak/" + fileName);
+        File file = new File(rootPath + "_bak" + File.separator + fileName);
         Boolean res = true;
         if (file.exists()) {
             res = file.delete();

@@ -34,4 +34,6 @@ public class DataFileBean {
     //文件内容数据
     @JSONField(ordinal = 5,name="BinData")
     private String binData;
+
+
 }

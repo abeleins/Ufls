@@ -82,16 +82,6 @@ public class DealFileTool {
     }
 
     /**
-     * 获取录波文件相对于FILE目录的相对路径
-     *
-     * @param absolutePath
-     * @return
-     */
-    public static String getRecordRelativePathName(String absolutePath) {
-        return absolutePath.substring(absolutePath.lastIndexOf("RESPONSE") + 9, absolutePath.lastIndexOf("."));
-    }
-
-    /**
      * 获取文件存储路径
      * @param dataType MODEL：模型/DATA：数据
      * @return

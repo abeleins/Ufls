@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RecFileBean {
 
-    public  static  final  int  FILE_FRAGMENT_SIZE = 1024 * 200;
+//    public  static  final  int  FILE_FRAGMENT_SIZE = 1024 * 200;
 
     //报文头信息
     @JSONField(ordinal = 1,name="HeadInfo")
@@ -48,4 +48,5 @@ public class RecFileBean {
     //文件内容数据信息
     @JSONField(ordinal = 8,name="Data")
     private DataFileBean data;
+
 }
